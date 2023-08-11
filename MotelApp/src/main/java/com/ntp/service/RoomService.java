@@ -2,15 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.ntp.repository;
+package com.ntp.service;
 
-import com.ntp.pojo.Host;
+import com.ntp.pojo.Room;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Admin
  */
-public interface HostRepository {
-    List<Host> getHost();
+public interface RoomService {
+
+    List<Room> getRoom(Map<String, String> params);
+
+    int coutRoom();
+
+    boolean addOrUpdateRoom(Room r);
 }

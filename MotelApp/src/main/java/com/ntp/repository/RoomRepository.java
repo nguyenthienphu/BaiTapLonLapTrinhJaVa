@@ -4,13 +4,16 @@
  */
 package com.ntp.repository;
 
-import com.ntp.pojo.Host;
+import com.ntp.pojo.Room;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Admin
  */
-public interface HostRepository {
-    List<Host> getHost();
+public interface RoomRepository {
+    List<Room> getRoom(Map<String, String> params);
+    int coutRoom();
+    boolean addOrUpdateRoom(Room r);
 }

@@ -4,15 +4,16 @@
  */
 package com.ntp.configs;
 
-import org.springframework.context.annotation.Bean;
+
+import com.ntp.formatter.HostFormatter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+
 
 /**
  *
@@ -22,7 +23,9 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.ntp.controllers"
+    "com.ntp.controllers",
+    "com.ntp.repository",
+    "com.ntp.service"
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
 
@@ -31,13 +34,12 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
-    @Bean
-    public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver r = new InternalResourceViewResolver();
-        r.setViewClass(JstlView.class);
-        r.setPrefix("/WEB-INF/pages/");
-        r.setSuffix(".jsp");
-        
-        return r;
-    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+       registry.addFormatter(new HostFormatter());
+    }   
+    
+    
+    
 }

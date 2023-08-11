@@ -9,13 +9,16 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,23 +26,30 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "host")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Host.findAll", query = "SELECT h FROM Host h"),
     @NamedQuery(name = "Host.findById", query = "SELECT h FROM Host h WHERE h.id = :id"),
-    @NamedQuery(name = "Host.findByName", query = "SELECT h FROM Host h WHERE h.name = :name")})
+    @NamedQuery(name = "Host.findByName", query = "SELECT h FROM Host h WHERE h.name = :name"),
+    @NamedQuery(name = "Host.findByImage", query = "SELECT h FROM Host h WHERE h.image = :image"),
+    @NamedQuery(name = "Host.findByDescription", query = "SELECT h FROM Host h WHERE h.description = :description")})
 public class Host implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "name")
     private String name;
+    @Size(max = 200)
+    @Column(name = "image")
+    private String image;
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
     @OneToMany(mappedBy = "hostId")
     private Set<Room> roomSet;
 
@@ -48,11 +58,6 @@ public class Host implements Serializable {
 
     public Host(Integer id) {
         this.id = id;
-    }
-
-    public Host(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
@@ -71,6 +76,23 @@ public class Host implements Serializable {
         this.name = name;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @XmlTransient
     public Set<Room> getRoomSet() {
         return roomSet;
     }
@@ -101,7 +123,7 @@ public class Host implements Serializable {
 
     @Override
     public String toString() {
-        return "pojo.Host[ id=" + id + " ]";
+        return "com.ntp.pojo.Host[ id=" + id + " ]";
     }
     
 }

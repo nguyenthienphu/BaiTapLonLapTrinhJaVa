@@ -5,17 +5,22 @@
 package com.ntp.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,21 +28,43 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "room")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r"),
     @NamedQuery(name = "Room.findById", query = "SELECT r FROM Room r WHERE r.id = :id"),
-    @NamedQuery(name = "Room.findByName", query = "SELECT r FROM Room r WHERE r.name = :name")})
+    @NamedQuery(name = "Room.findByName", query = "SELECT r FROM Room r WHERE r.name = :name"),
+    @NamedQuery(name = "Room.findByDescription", query = "SELECT r FROM Room r WHERE r.description = :description"),
+    @NamedQuery(name = "Room.findByPrice", query = "SELECT r FROM Room r WHERE r.price = :price"),
+    @NamedQuery(name = "Room.findByNumber", query = "SELECT r FROM Room r WHERE r.number = :number"),
+    @NamedQuery(name = "Room.findByImage", query = "SELECT r FROM Room r WHERE r.image = :image"),
+    @NamedQuery(name = "Room.findByCreatedDate", query = "SELECT r FROM Room r WHERE r.createdDate = :createdDate"),
+    @NamedQuery(name = "Room.findByActive", query = "SELECT r FROM Room r WHERE r.active = :active")})
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
     @Column(name = "name")
     private String name;
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+    @Column(name = "price")
+    private Long price;
+    @Column(name = "number")
+    private Integer number;
+    @Size(max = 200)
+    @Column(name = "image")
+    private String image;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @Column(name = "active")
+    private Boolean active;
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     @ManyToOne
     private Host hostId;
@@ -48,13 +75,6 @@ public class Room implements Serializable {
     public Room(Integer id) {
         this.id = id;
     }
-
-    public Room(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-        
-    }
-    
 
     public Integer getId() {
         return id;
@@ -70,6 +90,54 @@ public class Room implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Host getHostId() {
@@ -102,7 +170,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "pojo.Room[ id=" + id + " ]";
+        return "com.ntp.pojo.Room[ id=" + id + " ]";
     }
     
 }
