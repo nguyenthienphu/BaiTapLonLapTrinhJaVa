@@ -48,13 +48,15 @@ Author     : Admin
                     <td>${r.price}</td>
                     <td>${r.address}</td>
                     <td>
-                        <a href="#" class="btn btn-info">Cập Nhật</a>
-                        <button class="btn btn-warning">Xoá</button>
+                        <c:url value="/room/${r.id}" var="api" />
+                        <a href="${api}" class="btn btn-info">Cập Nhật</a>
+                        <button class="btn btn-warning" onclick="deleteRoom('${api}')">Xoá</button>
                     </td>
                 </tr>
             </c:forEach>  
         </tbody>
     </table>
 </c:if>
+<script src="<c:url value="/js/main.js" />"></script>
 
 

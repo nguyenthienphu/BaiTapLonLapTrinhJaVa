@@ -52,4 +52,14 @@ public class RoomServiceImpl implements RoomService {
         return this.roomRepo.addOrUpdateRoom(r);
     }
 
+    @Override
+    public Room getRoomById(int id) {
+         return this.roomRepo.getRoomById(id);
+    }
+
+    @Override
+    public boolean deleteRoom(int id) {
+        return this.roomRepo.deleteRoom(id);
+    }
+
 }

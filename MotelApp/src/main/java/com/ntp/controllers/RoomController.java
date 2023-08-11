@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -25,9 +27,16 @@ public class RoomController {
     @Autowired
     private RoomService roomSer;
     
-    @RequestMapping("/room")
+    @GetMapping("/room")
     public String createRoom(Model model) {
         model.addAttribute("room", new Room());
+        
+        return "room";
+    }
+    
+    @GetMapping("/room/{roomId}")
+    public String update(Model model, @PathVariable(value = "roomId") int id ){
+        model.addAttribute("room", this.roomSer.getRoomById(id));
         
         return "room";
     }

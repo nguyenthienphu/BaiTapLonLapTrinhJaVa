@@ -110,4 +110,23 @@ public class RoomRepositoryImpl implements RoomRepository {
             return false;
         }
     }
+
+    @Override
+    public Room getRoomById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Room.class, id);
+    }
+
+    @Override
+    public boolean deleteRoom(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Room r = this.getRoomById(id);
+        try {
+            s.delete(r);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

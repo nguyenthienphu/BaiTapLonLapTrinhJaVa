@@ -13,10 +13,9 @@ import java.util.Map;
  * @author Admin
  */
 public interface RoomService {
-
     List<Room> getRoom(Map<String, String> params);
-
     int coutRoom();
-
     boolean addOrUpdateRoom(Room r);
+    Room getRoomById(int id);
+    boolean deleteRoom(int id);
 }
