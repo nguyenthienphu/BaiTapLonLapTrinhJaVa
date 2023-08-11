@@ -19,8 +19,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -47,12 +50,16 @@ public class Room implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
     @Column(name = "name")
+    @Size(max = 45 , message = "{room.name.lenErr}")
+    @NotNull(message = "{room.name.notNull}")
     private String name;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
+    @Size(max = 200)
+    @Column(name = "address")
+    private String address;
     @Column(name = "price")
     private Long price;
     @Column(name = "number")
@@ -68,6 +75,9 @@ public class Room implements Serializable {
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     @ManyToOne
     private Host hostId;
+    
+    @Transient
+    private MultipartFile file;
 
     public Room() {
     }
@@ -98,6 +108,13 @@ public class Room implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+     public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getPrice() {
@@ -171,6 +188,20 @@ public class Room implements Serializable {
     @Override
     public String toString() {
         return "com.ntp.pojo.Room[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

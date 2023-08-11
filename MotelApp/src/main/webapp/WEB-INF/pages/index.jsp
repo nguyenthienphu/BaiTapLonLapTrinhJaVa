@@ -34,6 +34,7 @@ Author     : Admin
                 <th>Số Người</th>
                 <th>Giá</th>
                 <th>Địa chỉ</th>
+                
                 <th>Tiện ích</th>
             </tr>
         </thead>

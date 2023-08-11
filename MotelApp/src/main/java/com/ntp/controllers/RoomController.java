@@ -6,9 +6,11 @@ package com.ntp.controllers;
 
 import com.ntp.pojo.Room;
 import com.ntp.service.RoomService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +33,10 @@ public class RoomController {
     }
     
     @PostMapping("/room")
-    public String add(@ModelAttribute(value = "room") Room r){
-        if(this.roomSer.addOrUpdateRoom(r) == true)
-            return "redirect:/";
+    public String add(@ModelAttribute(value = "room") @Valid Room r, BindingResult rs ){
+        if(!rs.hasErrors())
+            if(this.roomSer.addOrUpdateRoom(r) == true)
+                return "redirect:/";
         return "room"; 
     }
 }
