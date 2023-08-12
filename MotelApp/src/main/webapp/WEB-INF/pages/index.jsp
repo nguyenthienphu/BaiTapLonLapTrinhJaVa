@@ -11,7 +11,7 @@ Author     : Admin
 <c:url value="/" var="action"/>
 <h2 class="text-center text-success mt-2">DANH SÁCH PHÒNG</h2>
 <div>
-    <a href="<c:url value="/host"/>" class="btn btn-info">Thêm chủ phòng</a>
+    <a href="<c:url value="/host"/>" class="btn btn-info mb-2">Thêm chủ phòng</a>
 </div>
 <div>
     <a href="<c:url value="/room"/>" class="btn btn-info">Thêm phòng</a>
