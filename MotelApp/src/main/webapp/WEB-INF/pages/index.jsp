@@ -14,6 +14,9 @@ Author     : Admin
     <a href="<c:url value="/host"/>" class="btn btn-info mb-2">Thêm chủ phòng</a>
 </div>
 <div>
+    <a href="<c:url value="/listhost"/>" class="btn btn-info mb-2">Danh sách chủ phòng</a>
+</div>
+<div>
     <a href="<c:url value="/room"/>" class="btn btn-info">Thêm phòng</a>
 </div>
 <c:if test="${pages > 1}">

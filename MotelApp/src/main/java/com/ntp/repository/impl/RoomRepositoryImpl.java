@@ -4,6 +4,7 @@
  */
 package com.ntp.repository.impl;
 
+
 import com.ntp.pojo.Room;
 import com.ntp.repository.RoomRepository;
 import java.util.ArrayList;
@@ -130,3 +131,5 @@ public class RoomRepositoryImpl implements RoomRepository {
         }
     }
 }
+
+   
