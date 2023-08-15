@@ -6,11 +6,13 @@ package com.ntp.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,20 +24,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
 @Configuration
 @EnableWebSecurity
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.dht.controllers",
-    "com.dht.repository",
-    "com.dht.service"
+    "com.ntp.controllers",
+    "com.ntp.repository",
+    "com.ntp.service"
 })
+@PropertySource("classpath:configs.properties")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private Environment env;
-
+    
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -50,12 +54,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.formLogin()
-//                .loginPage("/login")
+        http.formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password");
 
@@ -73,7 +76,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
         http.csrf().disable();
     }
-     @Bean
+
+    @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
@@ -83,8 +87,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "secure", true));
         return cloudinary;
     }
-    
-     @Bean
+
+    @Bean
     public SimpleDateFormat simpleDateFormat() {
         return new SimpleDateFormat("yyyy-MM-dd");
     }

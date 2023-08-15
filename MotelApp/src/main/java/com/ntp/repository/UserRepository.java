@@ -1,15 +1,18 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ntp.repository;
 
 import com.ntp.pojo.User;
+import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
 public interface UserRepository {
-    User getUserByUserName(String username);
+//    User getUserByUsername(String username);
+    boolean addOrUpdateUser(User user);
+    List<User> getUsers(String username);
 }
