@@ -8,88 +8,94 @@ Author     : Admin
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-<sec:authorize access="hasRole('ROLE_ADMIN')"> 
-    <h1 class="text-center text-success mt-2">CHÀO MỪNG ADMIN TỚI TRANG WEB QUẢN LÝ NHÀ TRỌ</h1>
-    <div>
-        <a href="<c:url value="/listhost"/>" class="btn btn-info mb-2">Danh sách chủ phòng</a>
-    </div>
-    <div>
-        <a href="<c:url value="/listroom"/>" class="btn btn-info mb-2">Danh sách phòng</a>
-    </div>
-    <div>
-        <a href="<c:url value="/listuser"/>" class="btn btn-info mb-2">Danh sách User</a>
-    </div>
-</sec:authorize>
-
-<sec:authorize access="hasRole('ROLE_USER')"> 
-    ROLE_USER
-</sec:authorize> 
-
-<sec:authorize access="hasRole('ROLE_HOST')"> 
-    <c:url value="/listroom" var="action"/>
-    <h1 class="text-center text-success mt-2">DANH SÁCH PHÒNG</h1>
-    
-    <div>
-        <a href="<c:url value="/room"/>" class="btn btn-info">Thêm phòng</a>
-    </div>
-    <c:if test="${pages > 1}">
-        <ul class="pagination mt-2">
-            <li class="page-item"><a class="page-link" href="${action}">Tất cả</a></li>
-                <c:forEach begin="1" end="${pages}" var="i" >
-                    <c:url value="/listroom" var="pageUrl">
-                        <c:param name="page" value="${i}" />
-                    </c:url>
-                <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
-                </c:forEach>
-        </ul>
-    </c:if>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Hình Ảnh</th>
-                <th>Tên Phòng</th>
-                <th>Số Người</th>
-                <th>Giá</th>
-                <th>Địa chỉ</th>
-                <th>Tiện ích</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${rooms}" var="r">
-                <tr>
-                    <td>${r.id}</td>
-                    <td><image src="${r.image}" alt="${p.image}" width="200"/></td>
-                    <td>${r.name}</td>
-                    <td>${r.number}</td>
-                    <td>${r.price}</td>
-                    <td>${r.address}</td>
-                    <td>
-                        <c:url value="/room/${r.id}" var="api" />
-                        <a href="${api}" class="btn btn-info">Cập Nhật</a>
-                        <button class="btn btn-warning" onclick="deleteRoom('${api}')">Xoá</button>
-                    </td>
-                </tr>
-            </c:forEach>  
-        </tbody>
-    </table>
-</sec:authorize> 
-
-
-
-
-
 <c:choose>
-    <c:when test="${pageContext.request.userPrincipal.name != null}">
-
+    <c:when test="${pageContext.request.userPrincipal.name == null}">
+        <h1 class="text-center text-success mt-2">CHÀO MỪNG TỚI TRANG WEB QUẢN LÝ NHÀ TRỌ</h1>
     </c:when>
     <c:otherwise>
-        <h1 class="text-center text-success mt-2">CHÀO MỪNG TỚI TRANG WEB QUẢN LÝ NHÀ TRỌ</h1>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+            <h1 class="text-center text-success mt-2">CHÀO MỪNG ${pageContext.request.userPrincipal.name} TỚI TRANG WEB QUẢN LÝ NHÀ TRỌ</h1>
+            <div>
+                <a href="<c:url value="/listhost"/>" class="btn btn-info mb-2">Danh sách chủ phòng</a>
+            </div>
+            <div>
+                <a href="<c:url value="/listroom"/>" class="btn btn-info mb-2">Danh sách phòng</a>
+            </div>
+            <div>
+                <a href="<c:url value="/listuser"/>" class="btn btn-info mb-2">Danh sách User</a>
+            </div>
+        </sec:authorize>
+            
+        <sec:authorize access="hasRole('ROLE_USER')"> 
+            ROLE_USER
+        </sec:authorize> 
+
+        <sec:authorize access="hasRole('ROLE_HOST')"> 
+            <c:url value="/listroom" var="action"/>
+            <h1 class="text-center text-success mt-2">CHÀO MỪNG ${pageContext.request.userPrincipal.name} TỚI TRANG WEB QUẢN LÝ NHÀ TRỌ</h1>
+            <div>
+                <a href="<c:url value="/listroom"/>" class="btn btn-info">Danh sách phòng</a>
+            </div>
+        </sec:authorize> 
+
     </c:otherwise>
 </c:choose>
+            
+<c:url value="/listroom" var="action"/>
 
+<h1 class="text-center text-success mt-2">DANH SÁCH PHÒNG</h1>
 
+<div>
+    <a href="<c:url value="/room"/>" class="btn btn-info mb-2">Thêm phòng</a>
+</div>
+
+<c:if test="${pages > 1}">
+    <ul class="pagination mt-2">
+        <li class="page-item"><a class="page-link" href="${action}">Tất cả</a></li>
+            <c:forEach begin="1" end="${pages}" var="i" >
+                <c:url value="/listroom" var="pageUrl">
+                    <c:param name="page" value="${i}" />
+                </c:url>
+            <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
+            </c:forEach>
+    </ul>
+</c:if>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Hình Ảnh</th>
+            <th>Tên Phòng</th>
+            <th>Số Người</th>
+            <th>Giá</th>
+            <th>Địa chỉ</th>
+            <th>Tiện ích</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${rooms}" var="r">
+            <tr>
+                <td>${r.id}</td>
+                <td><image src="${r.image}" alt="${p.image}" width="200"/></td>
+                <td>${r.name}</td>
+                <td>${r.number}</td>
+                <td>${r.price}</td>
+                <td>${r.address}</td>
+                <td>
+                    <c:url value="/room/${r.id}" var="api" />
+                    <a href="${api}" class="btn btn-info">Cập Nhật</a>
+                    <button class="btn btn-warning" onclick="deleteRoom('${api}')">Xoá</button>
+                </td>
+            </tr>
+        </c:forEach>  
+    </tbody>
+</table>
 <script src="<c:url value="/js/main.js" />"></script>
+            
+
+
+
 
 

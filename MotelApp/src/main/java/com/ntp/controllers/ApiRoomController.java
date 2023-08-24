@@ -33,10 +33,8 @@ public class ApiRoomController {
 
     @DeleteMapping("/room/{roomId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteRoom(@PathVariable(value = "roomId") int id) {
+    public void deleteRoom(@PathVariable(value = "roomId") int id) {
         this.roomSer.deleteRoom(id);
-
-        return "room";
     }
     
     @GetMapping("/room/")
