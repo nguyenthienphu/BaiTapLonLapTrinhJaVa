@@ -37,8 +37,8 @@ const Header = () => {
                             return <Link to={q} className="dropdown-item" key={h.id}>{h.name}</Link>;
                         })}
                     </NavDropdown>
-                    <Nav.Link href="#link">Đăng nhập</Nav.Link>
-                    <Nav.Link href="#link">Đăng ký</Nav.Link>
+                    <Link to="/login" className="nav-link text-danger">Đăng nhập</Link>
+                    <Link href="#link">Đăng ký</Link>
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <Form.Control

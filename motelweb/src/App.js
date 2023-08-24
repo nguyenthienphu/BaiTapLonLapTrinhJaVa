@@ -4,6 +4,7 @@ import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import { Container } from 'react-bootstrap';
 import Room from './components/Room';
+import Login from './components/login';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/room" element={<Room />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
 
       </Container>
