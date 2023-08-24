@@ -4,6 +4,7 @@
  */
 package com.ntp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -74,9 +75,11 @@ public class Room implements Serializable {
     private Boolean active;
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Host hostId;
     
     @Transient
+    @JsonIgnore
     private MultipartFile file;
 
     public Room() {

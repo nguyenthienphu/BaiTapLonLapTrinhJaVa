@@ -63,7 +63,7 @@ public class RoomRepositoryImpl implements RoomRepository {
 //                if (toPrice != null && !toPrice.isEmpty()) 
 //                    predicates.add(b.lessThanOrEqualTo(r.get("price"), Long.parseLong(toPrice)));
 //                
-            String hId = params.get("hId");
+            String hId = params.get("hostId");
             if (hId != null && !hId.isEmpty()) {
                 predicates.add(b.equal(r.get("hostId"), Long.valueOf(hId)));
             }

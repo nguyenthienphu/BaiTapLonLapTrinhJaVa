@@ -11,6 +11,8 @@
 <h1 class="text-center text-info">THÊM CHỦ PHÒNG</h1>
 <c:url value="/host" var="action"/>
 <form:form modelAttribute="host" method="post" action="${action}" enctype="multipart/form-data">
+    <form:hidden path="id" />
+    <form:hidden path="image" />
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên chủ phòng" name="name" />
         <label for="name">Tên chủ phòng</label>
@@ -23,10 +25,16 @@
     <div class="form-floating mb-3 mt-3">
         <form:input type="file" class="form-control" path="file" id="file" />
         <label for="file">Ảnh chủ phòng</label>
+        <c:if test="${host.image != null}">
+            <img src="${host.image}" width="120" />
+        </c:if>
     </div>
     <div class="btn btn-info mb-3 mt-3">
         <button type="submit" class="btn btn-info" >
-            Thêm
+            <c:choose>
+                <c:when test="${host.id != null}">Cập nhật chủ phòng</c:when>
+                <c:otherwise>Thêm chủ phòng</c:otherwise>
+            </c:choose>
         </button>
     </div>
 </form:form>

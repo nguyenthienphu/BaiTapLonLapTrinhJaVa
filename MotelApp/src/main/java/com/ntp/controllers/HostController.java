@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,11 +38,17 @@ public class HostController {
         
         return "host";
     }
+    @GetMapping("/host/{hostId}")
+    public String update(Model model, @PathVariable(value = "hostId") int id) {
+        model.addAttribute("host", this.hostSer.getHostById(id));
+        
+        return "host";
+    }
     
     @PostMapping("/host")
-    public String add(@ModelAttribute(value = "host")Host h ){
+    public String addHost(@ModelAttribute(value = "host")Host h ){
         if(this.hostSer.addOrUpdateHost(h) == true)
-            return "redirect:/";
+            return "redirect:/listhost";
         return "host"; 
     }
 }

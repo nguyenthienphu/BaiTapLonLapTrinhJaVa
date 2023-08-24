@@ -1,4 +1,4 @@
-/*
+   /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
+//import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -30,14 +30,14 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
 
-//    @Override
-//    public User getUserByUsername(String username) {
-//        Session s = this.factory.getObject().getCurrentSession();
-//        Query q = s.createQuery("From User Where username=:un");
-//        q.setParameter("un", username);
-//        
-//        return (User) q.getSingleResult();
-//    }
+    @Override
+    public User getUserByUsername(String username) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From User Where username=:un");
+        q.setParameter("un", username);
+        
+        return (User) q.getSingleResult();
+    }
 
     @Override
     public boolean addOrUpdateUser(User user) {
@@ -56,19 +56,25 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getUsers(String username) {
+    public List<User> getUser() {
        Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<User> query = b.createQuery(User.class);
         Root r = query.from(User.class);
         
-        if(!username.isEmpty()){
-            Predicate p = b.equal(r.get("username").as(String.class), username.trim());
-            query = query.where(p);
-        }
-        
+//        if(!username.isEmpty()){
+//            Predicate p = b.equal(r.get("username").as(String.class), username.trim());
+//            query = query.where(p);
+//        }
+         query.orderBy(b.desc(r.get("id")));
         Query q = session.createQuery(query.select(r));
         return q.getResultList();
+    }
+
+    @Override
+    public User getUserById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(User.class, id);
     }
     
 }

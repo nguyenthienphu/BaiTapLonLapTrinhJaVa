@@ -4,6 +4,7 @@
  */
 package com.ntp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -53,8 +54,12 @@ public class Host implements Serializable {
     @Column(name = "description")
     private String description;
     @OneToMany(mappedBy = "hostId")
+    @JsonIgnore
     private Set<Room> roomSet;
+//    @OneToMany(mappedBy = "hostId")
+//    private Set<User> userSet;
     
+    @JsonIgnore
     @Transient
     private MultipartFile file;
 
@@ -144,5 +149,19 @@ public class Host implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+    /**
+     * @return the userSet
+     */
+//    public Set<User> getUserSet() {
+//        return userSet;
+//    }
+//
+//    /**
+//     * @param userSet the userSet to set
+//     */
+//    public void setUserSet(Set<User> userSet) {
+//        this.userSet = userSet;
+//    }
     
 }

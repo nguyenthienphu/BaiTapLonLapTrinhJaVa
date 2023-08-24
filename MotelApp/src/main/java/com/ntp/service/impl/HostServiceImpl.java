@@ -45,5 +45,10 @@ public class HostServiceImpl implements HostService{
          }
         return this.hostRepo.addOrUpdateHost(h);
     }
+
+    @Override
+    public Host getHostById(int id) {
+        return this.hostRepo.getHostById(id);
+    }
     
 }

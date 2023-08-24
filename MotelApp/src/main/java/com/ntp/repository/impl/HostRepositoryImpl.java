@@ -8,6 +8,9 @@ import com.ntp.pojo.Host;
 import com.ntp.repository.HostRepository;
 import java.util.List;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,14 @@ public class HostRepositoryImpl implements HostRepository {
 
     @Override
     public List<Host> getHost() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("Host.findAll");
-
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Host> query = b.createQuery(Host.class);
+        Root r = query.from(Host.class);
+        
+        query.orderBy(b.desc(r.get("id")));
+        
+        Query q = session.createQuery(query.select(r));
         return q.getResultList();
     }
 
@@ -49,5 +57,11 @@ public class HostRepositoryImpl implements HostRepository {
             return false;
         }
 
+    }
+
+    @Override
+    public Host getHostById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Host.class, id);
     }
 }

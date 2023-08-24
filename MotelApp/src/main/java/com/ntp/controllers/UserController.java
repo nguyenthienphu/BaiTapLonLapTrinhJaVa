@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -28,6 +29,20 @@ public class UserController {
         return "login";
     }
     
+    @GetMapping("/listuser")
+    public String listUser(Model model) {
+        model.addAttribute("listuser", this.userSer.getUser());
+        
+        return "listuser";
+    }
+    
+     @GetMapping("/user/{userId}")
+    public String update(Model model, @PathVariable(value = "userId") int id ){
+        model.addAttribute("user", this.userSer.getUserById(id));
+        
+        return "register";
+    }
+    
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
@@ -35,7 +50,7 @@ public class UserController {
     }
     
     @PostMapping("/register")
-    public String add(Model model, @ModelAttribute(value = "register") User user ){
+    public String add(Model model, @ModelAttribute(value = "user") User user ){
         String errMsg = "";
         if(user.getPassword().equals(user.getConfirmPassword())){
             if(this.userSer.addOrUpdateUser(user) == true)

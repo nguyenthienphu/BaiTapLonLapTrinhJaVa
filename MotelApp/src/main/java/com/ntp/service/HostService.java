@@ -14,4 +14,5 @@ import java.util.List;
 public interface HostService {
     List<Host> getHost();
     boolean addOrUpdateHost(Host h);
+    Host getHostById(int id);
 }
