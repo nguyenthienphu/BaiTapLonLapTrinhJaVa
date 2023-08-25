@@ -31,7 +31,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.ntp.controllers",
     "com.ntp.repository",
     "com.ntp.service", 
-    "com.ntp.components"})
+    "com.ntp.components"
+})
 @Order(1)
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     
@@ -87,8 +88,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         // Disable crsf cho đường dẫn /rest/**
         http.csrf().ignoringAntMatchers("/api/**");
         http.authorizeRequests().antMatchers("/api/login/").permitAll();
-        http.authorizeRequests().antMatchers("/api/products/").permitAll();
-        http.authorizeRequests().antMatchers("/api/categories/").permitAll();
+        http.authorizeRequests().antMatchers("/api/room/").permitAll();
+        http.authorizeRequests().antMatchers("/api/host/").permitAll();
         http.authorizeRequests().antMatchers("/api/users/").permitAll();
         http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()

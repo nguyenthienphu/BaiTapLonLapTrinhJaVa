@@ -33,6 +33,7 @@ public class ApiUserController {
 
     @Autowired
     private JwtService jwtService;
+    
     @Autowired
     private UserService userService;
 

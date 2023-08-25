@@ -1,17 +1,42 @@
-import { Form } from "react-bootstrap/lib/Navbar"
+import { useState } from "react";
+import cookie from "react-cookies";
+import Apis, {authApis,endpoints } from "../configs/Apis";
+import { Button, Form } from "react-bootstrap";
 
 const Login = () => {
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+
+    const login = (evt) => {
+        evt.preventDefault();
+        const process = async () => {
+            let res = await Apis.post(endpoints['login'], {
+                "username": username,
+                "password": password
+            });
+            cookie.save("token", res.data);
+            
+            let {data} = await authApis().get(endpoints['current-user']);
+            cookie.save("user", data);
+            console.info(data);
+        }
+        process();
+    }
+
     return <>
         <h1 className="text-center text-info mt-2">ĐĂNG NHẬP NGƯỜI DÙNG</h1>
 
-        <Form>
+        <Form onSubmit={login}>
             <Form.Group className="mb-3" >
                 <Form.Label>Tên đăng nhập</Form.Label>
-                <Form.Control type="text" placeholder="Tên đăng nhập" />
+                <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Tên đăng nhập" />
             </Form.Group>
             <Form.Group className="mb-3" >
                 <Form.Label>Mật khẩu</Form.Label>
-                <Form.Control type="password" placeholder="Mật khẩu" />
+                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Mật khẩu" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Button type="submit" variant="danger">Đăng nhập</Button>
             </Form.Group>
         </Form>
     </>

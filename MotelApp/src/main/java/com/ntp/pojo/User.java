@@ -4,6 +4,7 @@
  */
 package com.ntp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -68,6 +69,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     
+    @JsonIgnore
     @Transient
     private String confirmPassword;
     
@@ -78,10 +80,11 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_role")
     private String userRole;
-    @JoinColumn(name = "host_id", referencedColumnName = "id")
-    @ManyToOne
-    private Host hostId;
+//    @JoinColumn(name = "host_id", referencedColumnName = "id")
+//    @ManyToOne
+//    private Host hostId;
     
+    @JsonIgnore
     @Transient
     private MultipartFile file;
     
