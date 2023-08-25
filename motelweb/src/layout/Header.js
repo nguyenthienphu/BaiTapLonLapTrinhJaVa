@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Apis, { endpoints } from "../configs/Apis"
 import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import MySpinner from "./MySpinner"
+import { MyUserContext } from "../App"
 
 const Header = () => {
+    const [user, dispatch] = useContext(MyUserContext);
     const [host, setHost] = useState([])
     const [kw, setKw] = useState("");
     const nav = useNavigate();
@@ -37,8 +39,10 @@ const Header = () => {
                             return <Link to={q} className="dropdown-item" key={h.id}>{h.name}</Link>;
                         })}
                     </NavDropdown>
-                    <Link to="/login" className="nav-link text-danger">Đăng nhập</Link>
-                    <Link href="#link">Đăng ký</Link>
+                    {user === null ? <Link to="/login" className="nav-link text-danger">Đăng nhập</Link>:<>
+                        <Link to="/login" className="nav-link text-succes">Chào {user.username}!</Link> 
+                        
+                    </>}
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <Form.Control

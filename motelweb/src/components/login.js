@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cookie from "react-cookies";
 import Apis, {authApis,endpoints } from "../configs/Apis";
 import { Button, Form } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import { MyUserContext } from "../App";
 
 const Login = () => {
+    const [user, dispatch] = useContext(MyUserContext);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
@@ -18,10 +21,16 @@ const Login = () => {
             
             let {data} = await authApis().get(endpoints['current-user']);
             cookie.save("user", data);
-            console.info(data);
+
+             dispatch({
+                "type": "login",
+                "payload": data
+            });
         }
         process();
     }
+     if (user !== null)
+        return <Navigate to="/" />
 
     return <>
         <h1 className="text-center text-info mt-2">ĐĂNG NHẬP NGƯỜI DÙNG</h1>
