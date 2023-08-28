@@ -51,7 +51,7 @@ const Header = () => {
                         <Link to="/login" className="nav-link text-succes">Chào {user.username}!</Link> 
                         <Button variant="secondary" onClick={logout}>Đăng xuất</Button>
                     </>}
-                    <Link to="/" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link> 
+                    <Link to="/cart" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link> 
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <Form.Control
