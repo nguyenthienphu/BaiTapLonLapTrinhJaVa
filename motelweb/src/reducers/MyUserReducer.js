@@ -8,8 +8,9 @@ const MyUserReducer = (currentState, action) => {
             cookie.remove("token");
             cookie.remove("user");
             return null;
+        default:
+            return currentState;
     }
-    return currentState;
 }
 
 export default MyUserReducer;

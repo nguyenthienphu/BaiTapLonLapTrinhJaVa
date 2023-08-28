@@ -4,5 +4,6 @@
   <persistence-unit name="my_persistence_unit">
     <class>com.ntp.pojo.Room</class>
     <class>com.ntp.pojo.Host</class>
+    <class>com.ntp.pojo.Test</class>
   </persistence-unit>
 </persistence>

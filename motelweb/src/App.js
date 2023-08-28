@@ -4,7 +4,7 @@ import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import { Container } from 'react-bootstrap';
 import Room from './components/Room';
-import Login from './components/login';
+import Login from './components/Login';
 import { createContext, useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import cookie from "react-cookies";

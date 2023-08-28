@@ -54,7 +54,7 @@ const Home = () => {
                                     <Card.Text>{r.description}</Card.Text>
                                     <Card.Text>{r.address}</Card.Text>
                                     <Link to={url} className="btn btn-primary">Chi tiết phòng</Link>
-                                    <Button variant="danger">Đặt hàng</Button>
+                                    <Button variant="danger">Đặt phòng</Button>
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -25,6 +25,13 @@ const Header = () => {
         nav(`/?kw=${kw}`);
 
     }
+
+    const logout = () => {
+        dispatch({
+            "type": "logout"
+        })
+    }
+
     if (host === null)
         return <MySpinner />;
 
@@ -41,7 +48,7 @@ const Header = () => {
                     </NavDropdown>
                     {user === null ? <Link to="/login" className="nav-link text-danger">Đăng nhập</Link>:<>
                         <Link to="/login" className="nav-link text-succes">Chào {user.username}!</Link> 
-                        
+                        <Button variant="secondary" onClick={logout}>Đăng xuất</Button>
                     </>}
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
