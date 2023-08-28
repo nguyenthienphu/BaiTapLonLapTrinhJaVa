@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react"
 import Apis, { endpoints } from "../configs/Apis"
-import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap"
+import { Button, Container, Form, Nav, NavDropdown, Navbar, Badge } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import MySpinner from "./MySpinner"
-import { MyUserContext } from "../App"
+import { MyCartContext, MyUserContext } from "../App"
 
 const Header = () => {
     const [user, dispatch] = useContext(MyUserContext);
+    const [cartCounter,] = useContext(MyCartContext);
     const [host, setHost] = useState([])
     const [kw, setKw] = useState("");
     const nav = useNavigate();
@@ -50,6 +51,7 @@ const Header = () => {
                         <Link to="/login" className="nav-link text-succes">Chào {user.username}!</Link> 
                         <Button variant="secondary" onClick={logout}>Đăng xuất</Button>
                     </>}
+                    <Link to="/" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link> 
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <Form.Control

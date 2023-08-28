@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Apis, { endpoints } from "../configs/Apis"
 import { Alert, Button, Card, Col, Row } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
 import MySpinner from "../layout/MySpinner"
+import { MyCartContext } from "../App"
+import cookie from "react-cookies"
 
 const Home = () => {
+    const [cartCounter, cartDispatch] = useContext(MyCartContext);
     const [room, setRoom] = useState([])
     const [q] = useSearchParams();
 
@@ -32,6 +35,28 @@ const Home = () => {
 
     }, [q]);
 
+    const order = (r) => {
+        cartDispatch({
+            "type": "inc",
+            "payload": 1
+        })
+        let cart = cookie.load("cart") || null;
+        if (cart === null)
+            cart = {}
+
+        if (r.id in cart) {
+            cart[r.id]["quantity"] += 1;
+        } else {
+            cart[r.id] = {
+                "id": r.id,
+                "name": r.name,
+                "unitPrice": r.price,
+                "quantity": 1
+            }
+        }
+        cookie.save("cart", cart);
+    }
+
     if (room === null)
         return <MySpinner />
 
@@ -54,7 +79,7 @@ const Home = () => {
                                     <Card.Text>{r.description}</Card.Text>
                                     <Card.Text>{r.address}</Card.Text>
                                     <Link to={url} className="btn btn-primary">Chi tiết phòng</Link>
-                                    <Button variant="danger">Đặt phòng</Button>
+                                    <Button variant="danger" onClick={() => order(r)}>Đặt phòng</Button>
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -8,30 +8,34 @@ import Login from './components/Login';
 import { createContext, useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import cookie from "react-cookies";
+import MyCartCounterReducer from './reducers/MyCartCounterReducer';
 
 export const MyUserContext = createContext();
+export const MyCartContext = createContext();
 
 const App = () => {
   const [user, dispatch] = useReducer(MyUserReducer, cookie.load("user") || null);
+  const [cartCounter, cartDispatch] = useReducer(MyCartCounterReducer, 0  );
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-    <BrowserRouter>
-      <Header />
+      <MyCartContext.Provider value={[cartCounter, cartDispatch]}>
+        <BrowserRouter>
+          <Header />
 
-      <Container>
+          <Container>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/room" element={<Room />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/room" element={<Room />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
 
-      </Container>
+          </Container>
 
-      <Footer/>
-    </BrowserRouter>
-
+          <Footer />
+        </BrowserRouter>
+      </MyCartContext.Provider>
     </MyUserContext.Provider >
   );
 }

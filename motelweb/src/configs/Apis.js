@@ -12,7 +12,7 @@ export const endpoints = {
 }
 export const authApis = () => {
     return axios.create({
-        baseURL: "http://localhost:8080",
+        baseURL: "http://localhost:8085",
         headers: {
             "Authorization": cookie.load("token")
         }
@@ -20,5 +20,5 @@ export const authApis = () => {
 }
 
 export default axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "http://localhost:8085"
 });
