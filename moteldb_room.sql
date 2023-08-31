@@ -36,7 +36,7 @@ CREATE TABLE `room` (
   PRIMARY KEY (`id`),
   KEY `foreinkey_host_id_idx` (`host_id`),
   CONSTRAINT `foreinkey_host_id` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,'test 11','test 11',100000000,'test 11',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1691773549/u0nrdtbfzt0lfkwzwloi.png',NULL,NULL,1),(2,'phòng test','test mô phỏng',100000000,'48 đường 26/3',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1692102215/ugaqasc9eodbolf2zlrm.png',NULL,NULL,1),(3,'phòng test','aa',100000000,'48 đường 26/3',3,'https://res.cloudinary.com/de4ynzwro/image/upload/v1692718105/piox3kbw6pykornu4lt8.png',NULL,NULL,4);
+INSERT INTO `room` VALUES (1,'test 11','test 11',100000000,'test 11',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1691773549/u0nrdtbfzt0lfkwzwloi.png','2023-08-29 00:00:00',NULL,1),(2,'phòng test','test mô phỏng',100000000,'48 đường 26/3',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1692102215/ugaqasc9eodbolf2zlrm.png','2023-08-29 00:00:00',NULL,1),(3,'phòng test1112211111111111111111','aa',100000000,'48 đường 26/3',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1692718105/piox3kbw6pykornu4lt8.png','2023-08-29 00:00:00',NULL,4),(4,'aaaaaaaaaaaaaa','aaaaaaaaaaaaaaaa',100000000,'48 đường 26/3',1,'https://res.cloudinary.com/de4ynzwro/image/upload/v1693325178/gk4chaxdk4ho5epvcusn.png',NULL,NULL,2);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-24 12:52:58
+-- Dump completed on 2023-08-31 12:38:20

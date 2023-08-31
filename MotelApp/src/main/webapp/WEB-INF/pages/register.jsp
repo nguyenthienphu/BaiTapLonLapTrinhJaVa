@@ -57,6 +57,19 @@
         <label for="confirmPassword">Nhập lại mật khẩu</label>
     </div>
     <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div class="form-floating">
+        <form:select class="form-select" id="host" name="host" path="hostId">
+            <c:forEach items="${hosts}" var="h">
+                <c:choose>
+                    <c:when test="${h.id == room.hostId.id}">
+                        <option value="${h.id}" selected>${h.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${h.id}">${h.name}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </form:select>
         <div class="form-floating mb-3 mt-3">
             <form:select class="form-select" id="userRole" name="userRole" path="userRole">
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>

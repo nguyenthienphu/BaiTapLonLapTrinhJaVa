@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment env;
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -74,6 +74,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/room")
                 .access("hasAnyRole('ROLE_HOST', 'ROLE_ADMIN')");
+//        http.authorizeRequests()
+//                .antMatchers("/listroom")
+//                .access("hasAnyRole('ROLE_HOST', 'ROLE_ADMIN')");
+        http.authorizeRequests()
+                .antMatchers("/listhost")
+                .access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests()
+                .antMatchers("/host")
+                .access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests()
+                .antMatchers("/listuser")
+                .access("hasRole('ROLE_ADMIN')");
 //        .antMatchers("/**/pay")
 //                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
         http.csrf().disable();

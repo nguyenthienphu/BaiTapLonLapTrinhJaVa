@@ -7,12 +7,15 @@ const SERVER_CONTEXT = "/MotelApp";
 export const endpoints = {
     "host": `${SERVER_CONTEXT}/api/host/`,
     "room": `${SERVER_CONTEXT}/api/room/`,
+    "room-detail": (roomId) => `${SERVER_CONTEXT}/api/room/${roomId}/`,
     "login" : `${SERVER_CONTEXT}/api/login/`,
     "current-user": `${SERVER_CONTEXT}/api/current-user/`,
+    "comment": (roomId) => `${SERVER_CONTEXT}/api/room/${roomId}/comment/`,
+    "add-comment": `${SERVER_CONTEXT}/api/comment/`,
 }
 export const authApis = () => {
     return axios.create({
-        baseURL: "http://localhost:8085",
+        baseURL: "http://localhost:8080",
         headers: {
             "Authorization": cookie.load("token")
         }
@@ -20,5 +23,5 @@ export const authApis = () => {
 }
 
 export default axios.create({
-    baseURL: "http://localhost:8085"
+    baseURL: "http://localhost:8080"
 });

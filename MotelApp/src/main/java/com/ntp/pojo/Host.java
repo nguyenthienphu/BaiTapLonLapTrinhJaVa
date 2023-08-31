@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Admin
  */
 @Entity
+@Data
 @Table(name = "host")
 @XmlRootElement
 @NamedQueries({
@@ -53,11 +55,13 @@ public class Host implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
+    
     @OneToMany(mappedBy = "hostId")
     @JsonIgnore
     private Set<Room> roomSet;
-//    @OneToMany(mappedBy = "hostId")
-//    private Set<User> userSet;
+    
+    @OneToMany(mappedBy = "hostId")
+    private Set<User> userSet;
     
     @JsonIgnore
     @Transient

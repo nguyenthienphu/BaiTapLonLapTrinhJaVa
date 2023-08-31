@@ -6,6 +6,7 @@ package com.ntp.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -26,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author admin
  */
 @Entity
+@Data
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
@@ -80,9 +84,14 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_role")
     private String userRole;
-//    @JoinColumn(name = "host_id", referencedColumnName = "id")
-//    @ManyToOne
-//    private Host hostId;
+    
+    @JoinColumn(name = "host_id", referencedColumnName = "id")
+    @ManyToOne
+    private Host hostId;
+    
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Comment> commentSet;
     
     @JsonIgnore
     @Transient
