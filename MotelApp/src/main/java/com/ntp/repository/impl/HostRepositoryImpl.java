@@ -6,10 +6,13 @@ package com.ntp.repository.impl;
 
 import com.ntp.pojo.Host;
 import com.ntp.repository.HostRepository;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -30,16 +33,27 @@ public class HostRepositoryImpl implements HostRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Host> getHost() {
+    public List<Host> getHost(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Host> query = b.createQuery(Host.class);
-        Root r = query.from(Host.class);
+        CriteriaQuery<Host> q = b.createQuery(Host.class);
+        Root r = q.from(Host.class);
         
-        query.orderBy(b.desc(r.get("id")));
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+      
+            String Id = params.get("id");
+            if (Id != null && !Id.isEmpty()) {
+                predicates.add(b.equal(r.get("id"), Long.valueOf(Id)));
+            }
+               
+            q.where(predicates.toArray(Predicate[]::new));
+        }
         
-        Query q = session.createQuery(query.select(r));
-        return q.getResultList();
+        q.orderBy(b.desc(r.get("id")));
+        
+        Query query = session.createQuery(q.select(r));
+        return query.getResultList();
     }
 
     @Override

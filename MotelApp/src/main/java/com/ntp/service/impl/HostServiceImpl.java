@@ -29,8 +29,8 @@ public class HostServiceImpl implements HostService{
     private Cloudinary cloudinary;
     
     @Override
-    public List<Host> getHost() {
-        return this.hostRepo.getHost();
+    public List<Host> getHost(Map<String, String> params) {
+        return this.hostRepo.getHost(params);
     }
 
     @Override

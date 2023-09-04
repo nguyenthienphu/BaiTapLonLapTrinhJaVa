@@ -32,8 +32,8 @@ public class IndexController {
     private Environment env;
     
     @ModelAttribute
-    public void commonAttr(Model model){
-        model.addAttribute("hosts", this.hostSer.getHost());
+    public void commonAttr(Model model, @RequestParam Map<String, String> params){
+        model.addAttribute("hosts", this.hostSer.getHost(params));
     }
     
     @RequestMapping("/")

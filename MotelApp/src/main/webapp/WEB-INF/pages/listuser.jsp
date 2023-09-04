@@ -26,6 +26,7 @@
             <th>Phone</th>
             <th>Username</th>
             <th>UserRole</th>
+            <th>Chủ phòng</th>
             <th>Tiện ích</th>
         </tr>
     </thead>
@@ -40,6 +41,7 @@
                 <td>${u.phone}</td>
                 <td>${u.username}</td>
                 <td>${u.userRole}</td>
+                <td>${u.hostId.name}</td>
                 <td>
                     <c:url value="/user/${u.id}" var="api" />
                     <a href="${api}" class="btn btn-info">Cập Nhật</a>

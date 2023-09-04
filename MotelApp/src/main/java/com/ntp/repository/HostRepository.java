@@ -6,13 +6,14 @@ package com.ntp.repository;
 
 import com.ntp.pojo.Host;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Admin
  */
 public interface HostRepository {
-    List<Host> getHost();
+    List<Host> getHost(Map<String, String> params);
     boolean addOrUpdateHost(Host h);
     Host getHostById(int id);
 }
