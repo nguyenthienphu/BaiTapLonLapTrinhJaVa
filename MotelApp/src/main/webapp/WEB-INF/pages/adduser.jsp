@@ -71,20 +71,6 @@
         </form:select>
     </div>           
     <div class="form-floating mb-3 mt-3">
-        <form:select class="form-select" id="userRole" name="userRole" path="userRole">
-            <c:choose>
-                <c:when test="${user.id != null}">
-                    <option value="${user.userRole}">${user.userRole}</option>
-                </c:when>
-                <c:otherwise>
-                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                    <option value="ROLE_HOST">ROLE_HOST</option>      
-                </c:otherwise>
-            </c:choose>                    
-        </form:select>
-        <label for="sel1" class="form-label">Quyền truy cập</label>
-    </div>
-    <div class="form-floating mb-3 mt-3">
         <form:input type="file" class="form-control" path="file" id="file"/>
         <label for="avatar">Ảnh</label>
     </div>

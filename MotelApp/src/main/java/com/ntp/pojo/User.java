@@ -46,8 +46,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final String ADMIN = "ROLE_ADMIN";
     public static final String USER = "ROLE_USER";
+    public static final String HOST = "ROLE_HOST";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
