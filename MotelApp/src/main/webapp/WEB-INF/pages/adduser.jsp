@@ -1,6 +1,6 @@
 <%-- 
-    Document   : register
-    Created on : Aug 14, 2023, 11:27:43 PM
+    Document   : adduser
+    Created on : Aug 31, 2023, 1:21:59 PM
     Author     : Admin
 --%>
 
@@ -9,8 +9,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-<h1 class="text-center text-info">ĐĂNG KÝ</h1>
+<c:choose>
+    <c:when test="${user.id != null}">
+        <h1 class="text-center text-info">THÔNG TIN USER CHỦ PHÒNG</h1>
+    </c:when>
+    <c:otherwise>
+        <h1 class="text-center text-info">ĐĂNG KÝ USER CHỦ PHÒNG</h1>
+    </c:otherwise>
+</c:choose>
 
 <c:if test="${errMsg != null}" >
     <div class="alert alert-danger">
@@ -50,14 +56,36 @@
         <form:input type="password" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Nhập lại mật khẩu" name="confirmPassword" />
         <label for="confirmPassword">Nhập lại mật khẩu</label>
     </div>
-    <div class="form-floating mb-3 mt-3">
-        <form:input type="file" class="form-control" path="file" id="file"/>
-        <label for="avatar">Ảnh</label>
-    </div>
-    <div class="btn btn-info mb-3 mt-3">
-        <button type="submit" class="btn btn-info" >Đăng ký</button>
-    </div>
-</form:form>
-
-
-
+    <div class="form-floating">
+        <form:select class="form-select" id="host" name="host" path="hostId">
+            <c:forEach items="${hosts}" var="h">
+                <c:choose>
+                    <c:when test="${h.id == room.hostId.id}">
+                        <option value="${h.id}" selected>${h.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${h.id}">${h.name}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </form:select>
+        <div class="form-floating mb-3 mt-3">
+            <form:select class="form-select" id="userRole" name="userRole" path="userRole">
+                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                <option value="ROLE_HOST">ROLE_HOST</option>          
+            </form:select>
+            <label for="sel1" class="form-label">Quyền truy cập</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <form:input type="file" class="form-control" path="file" id="file"/>
+            <label for="avatar">Ảnh</label>
+        </div>
+        <div class="btn btn-info mb-3 mt-3">
+            <button type="submit" class="btn btn-info" >
+                <c:choose>
+                    <c:when test="${user.id != null}">Cập nhật thông tin user</c:when>
+                    <c:otherwise>Đăng ký</c:otherwise>
+                </c:choose>
+            </button>
+        </div>
+    </form:form>

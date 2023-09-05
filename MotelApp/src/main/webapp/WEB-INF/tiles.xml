@@ -52,6 +52,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" 
                        value="/WEB-INF/pages/listroom.jsp" />
     </definition>
+    <definition name="adduser" extends="baseLayout">
+        <put-attribute name="title" value="Đăng ký chủ phòng" />
+        <put-attribute name="content" 
+                       value="/WEB-INF/pages/adduser.jsp" />
+    </definition>
    
 </tiles-definitions>
 

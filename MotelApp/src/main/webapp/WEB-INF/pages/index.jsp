@@ -41,6 +41,37 @@ Author     : Admin
 
     </c:otherwise>
 </c:choose>
+            <table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Hình Ảnh</th>
+            <th>Tên Phòng</th>
+            <th>Số Người</th>
+            <th>Giá</th>
+            <th>Địa chỉ</th>
+            <th>Tiện ích</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${rooms}" var="r">
+            <tr>
+                <td>${r.id}</td>
+                <td><image src="${r.image}" alt="${p.image}" width="200"/></td>
+                <td>${r.name}</td>
+                <td>${r.number}</td>
+                <td>${r.price}</td>
+                <td>${r.address}</td>
+                <td>
+                    <c:url value="/room/${r.id}" var="api" />
+                    <a href="${api}" class="btn btn-info">Cập Nhật</a>
+                    <button class="btn btn-warning" onclick="deleteRoom('${api}')">Xoá</button>
+                </td>
+            </tr>
+        </c:forEach>  
+    </tbody>
+</table>
+<script src="<c:url value="/js/main.js" />"></script>
             
 
             

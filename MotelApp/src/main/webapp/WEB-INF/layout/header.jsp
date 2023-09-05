@@ -48,3 +48,17 @@
         </nav>
     </c:otherwise>
 </c:choose>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                   <c:forEach items="${hosts}" var="h">
+                        <c:url value="/listroom" var="searchUrl">
+                            <c:param name="hId" value="${h.id}" />
+                        </c:url>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${searchUrl}">${h.name}</a>
+                        </li>
+                    </c:forEach> 
+                </ul>
+            </div>
+        </nav>

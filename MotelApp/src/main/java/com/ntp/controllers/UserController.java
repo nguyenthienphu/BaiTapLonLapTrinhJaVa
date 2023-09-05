@@ -20,27 +20,33 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class UserController {
-    
+
     @Autowired
     UserService userSer;
-    
+
     @GetMapping("/login")
     public String login() {
         return "login";
     }
-    
+
     @GetMapping("/listuser")
     public String listUser(Model model) {
         model.addAttribute("listuser", this.userSer.getUser());
-        
+
         return "listuser";
     }
-    
-     @GetMapping("/user/{userId}")
-    public String update(Model model, @PathVariable(value = "userId") int id ){
+
+    @GetMapping("/user/{userId}")
+    public String update(Model model, @PathVariable(value = "userId") int id) {
         model.addAttribute("user", this.userSer.getUserById(id));
-        
+
         return "register";
+    }
+
+    @GetMapping("/adduser")
+    public String adduser(Model model) {
+        model.addAttribute("user", new User());
+        return "adduser";
     }
     
     @GetMapping("/register")
@@ -48,20 +54,22 @@ public class UserController {
         model.addAttribute("user", new User());
         return "register";
     }
-    
+
     @PostMapping("/register")
-    public String add(Model model, @ModelAttribute(value = "user") User user ){
+    public String add(Model model, @ModelAttribute(value = "user") User user) {
         String errMsg = "";
-        if(user.getPassword().equals(user.getConfirmPassword())){
-            if(this.userSer.addOrUpdateUser(user) == true)
+        if (user.getPassword().equals(user.getConfirmPassword())) {
+            if (this.userSer.addOrUpdateUser(user) == true) {
                 return "redirect:/login";
-            else
+            } else {
                 errMsg = "Hệ thống đang lỗi";
-        } else
+            }
+        } else {
             errMsg = "Mật khẩu không khớp!";
-        
+        }
+
         model.addAttribute("errMsg", errMsg);
-        
-        return "register"; 
+
+        return "register";
     }
 }
