@@ -40,12 +40,31 @@ public class UserController {
     public String update(Model model, @PathVariable(value = "userId") int id) {
         model.addAttribute("user", this.userSer.getUserById(id));
 
-        return "register";
+        return "adduser";
     }
 
     @GetMapping("/adduser")
-    public String adduser(Model model) {
+    public String addUserOfAdmin(Model model) {
         model.addAttribute("user", new User());
+        
+        return "adduser";
+    }
+    
+    @PostMapping("/adduser")
+    public String addUserOfAdmin(Model model, @ModelAttribute(value = "user") User user) {
+        String errMsg = "";
+        if (user.getPassword().equals(user.getConfirmPassword())) {
+            if (this.userSer.addOrUpdateUserOfAdmin(user) == true) {
+                return "redirect:/listuser";
+            } else {
+                errMsg = "Hệ thống đang lỗi";
+            }
+        } else {
+            errMsg = "Mật khẩu không khớp!";
+        }
+
+        model.addAttribute("errMsg", errMsg);
+
         return "adduser";
     }
     

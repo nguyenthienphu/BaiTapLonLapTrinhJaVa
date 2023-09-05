@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface UserService extends UserDetailsService {
     boolean addOrUpdateUser(User user);
+    boolean addOrUpdateUserOfAdmin(User user);
     List<User> getUser();
     User getUserById(int id);
     User getUserByUn(String username);

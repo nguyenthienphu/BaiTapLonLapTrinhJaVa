@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
-    
+
     @Autowired
     private Cloudinary cloudinary;
-    
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -58,7 +58,22 @@ public class UserServiceImpl implements UserService {
         String pass = user.getPassword();
         user.setPassword(this.passwordEncoder.encode(pass));
         user.setUserRole(User.USER);
-         if (!user.getFile().isEmpty()) {
+        if (!user.getFile().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                user.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(RoomServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return this.userRepo.addOrUpdateUser(user);
+    }
+
+    @Override
+    public boolean addOrUpdateUserOfAdmin(User user) {
+        String pass = user.getPassword();
+        user.setPassword(this.passwordEncoder.encode(pass));
+        if (!user.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 user.setAvatar(res.get("secure_url").toString());
@@ -76,10 +91,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int id) {
-        return this.userRepo.getUserById(id);       
+        return this.userRepo.getUserById(id);
     }
-    
-     @Override
+
+    @Override
     public User getUserByUn(String username) {
         return this.userRepo.getUserByUsername(username);
     }
@@ -101,14 +116,14 @@ public class UserServiceImpl implements UserService {
         u.setUserRole("ROLE_USER");
         if (!avatar.isEmpty()) {
             try {
-                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
                 u.setAvatar(res.get("secure_url").toString());
             } catch (IOException ex) {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         this.userRepo.addUser(u);
         return u;
     }

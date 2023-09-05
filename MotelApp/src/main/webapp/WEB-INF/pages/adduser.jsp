@@ -24,7 +24,7 @@
     </div>   
 </c:if>
 
-<c:url value="/register" var="action"/>
+<c:url value="/adduser" var="action"/>
 <form:form modelAttribute="user" method="post" action="${action}" enctype="multipart/form-data" >
     <form:hidden path="id" />
     <form:hidden path="avatar" />
@@ -60,7 +60,7 @@
         <form:select class="form-select" id="host" name="host" path="hostId">
             <c:forEach items="${hosts}" var="h">
                 <c:choose>
-                    <c:when test="${h.id == room.hostId.id}">
+                    <c:when test="${h.id == user.hostId.id}">
                         <option value="${h.id}" selected>${h.name}</option>
                     </c:when>
                     <c:otherwise>
@@ -69,23 +69,31 @@
                 </c:choose>
             </c:forEach>
         </form:select>
-        <div class="form-floating mb-3 mt-3">
-            <form:select class="form-select" id="userRole" name="userRole" path="userRole">
-                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                <option value="ROLE_HOST">ROLE_HOST</option>          
-            </form:select>
-            <label for="sel1" class="form-label">Quyền truy cập</label>
-        </div>
-        <div class="form-floating mb-3 mt-3">
-            <form:input type="file" class="form-control" path="file" id="file"/>
-            <label for="avatar">Ảnh</label>
-        </div>
-        <div class="btn btn-info mb-3 mt-3">
-            <button type="submit" class="btn btn-info" >
-                <c:choose>
-                    <c:when test="${user.id != null}">Cập nhật thông tin user</c:when>
-                    <c:otherwise>Đăng ký</c:otherwise>
-                </c:choose>
-            </button>
-        </div>
-    </form:form>
+    </div>           
+    <div class="form-floating mb-3 mt-3">
+        <form:select class="form-select" id="userRole" name="userRole" path="userRole">
+            <c:choose>
+                <c:when test="${user.id != null}">
+                    <option value="${user.userRole}">${user.userRole}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                    <option value="ROLE_HOST">ROLE_HOST</option>      
+                </c:otherwise>
+            </c:choose>                    
+        </form:select>
+        <label for="sel1" class="form-label">Quyền truy cập</label>
+    </div>
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="file" class="form-control" path="file" id="file"/>
+        <label for="avatar">Ảnh</label>
+    </div>
+    <div class="btn btn-info mb-3 mt-3">
+        <button type="submit" class="btn btn-info" >
+            <c:choose>
+                <c:when test="${user.id != null}">Cập nhật thông tin user</c:when>
+                <c:otherwise>Đăng ký</c:otherwise>
+            </c:choose>
+        </button>
+    </div>
+</form:form>

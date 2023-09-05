@@ -12,7 +12,7 @@
 
 <h1 class="text-center text-success mt-2">DANH SÁCH USER</h1>
 <div>
-    <a href="<c:url value="/register"/>" class="btn btn-info">Thêm User</a>
+    <a href="<c:url value="/adduser"/>" class="btn btn-info">Thêm User</a>
 </div>
 
 <table class="table">
