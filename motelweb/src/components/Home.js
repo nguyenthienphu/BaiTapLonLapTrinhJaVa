@@ -18,7 +18,7 @@ const Home = () => {
 
                 let hostId = q.get("hostId");
                 if (hostId !== null && hostId !== "") {
-                    e = `${e}?hostId=${hostId}`;
+                    e = `${e}?hId=${hostId}`;
                 } else {
                     let kw = q.get("kw");
                     if (kw !== null && kw !== "")

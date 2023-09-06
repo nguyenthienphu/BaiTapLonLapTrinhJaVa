@@ -28,7 +28,7 @@ Author     : Admin
         </sec:authorize>
             
         <sec:authorize access="hasRole('ROLE_USER')"> 
-            ROLE_USER
+            x
         </sec:authorize> 
 
         <sec:authorize access="hasRole('ROLE_HOST')"> 

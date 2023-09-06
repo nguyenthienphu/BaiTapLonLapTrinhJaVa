@@ -61,6 +61,7 @@ public class Host implements Serializable {
     private Set<Room> roomSet;
     
     @OneToMany(mappedBy = "hostId")
+    @JsonIgnore
     private Set<User> userSet;
     
     @JsonIgnore
@@ -157,15 +158,15 @@ public class Host implements Serializable {
     /**
      * @return the userSet
      */
-//    public Set<User> getUserSet() {
-//        return userSet;
-//    }
-//
-//    /**
-//     * @param userSet the userSet to set
-//     */
-//    public void setUserSet(Set<User> userSet) {
-//        this.userSet = userSet;
-//    }
+    public Set<User> getUserSet() {
+        return userSet;
+    }
+
+    /**
+     * @param userSet the userSet to set
+     */
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
+    }
     
 }
