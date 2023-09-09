@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -55,6 +57,16 @@ public class ApiRoomController {
 //        MediaType.MULTIPART_FORM_DATA_VALUE,
 //        MediaType.APPLICATION_JSON_VALUE
 //    })
+    
+    @PostMapping(path="/room/", 
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<Room> addRoom(@RequestParam Map<String, String> params, @RequestPart MultipartFile image) {
+        Room r = this.roomSer.addRoom(params, image);
+        
+        return new ResponseEntity<>(r, HttpStatus.CREATED);
+    }
 
     @GetMapping("/room/")
     @CrossOrigin

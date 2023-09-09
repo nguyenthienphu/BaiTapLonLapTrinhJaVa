@@ -130,6 +130,14 @@ public class RoomRepositoryImpl implements RoomRepository {
             return false;
         }
     }
+
+    @Override
+    public Room addRoom(Room room) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(room);
+        
+        return room;
+    }
 }
 
    

@@ -93,6 +93,10 @@ public class User implements Serializable {
     @JsonIgnore
     private Set<Comment> commentSet;
     
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Posts> postsSet;
+    
     @JsonIgnore
     @Transient
     private MultipartFile file;

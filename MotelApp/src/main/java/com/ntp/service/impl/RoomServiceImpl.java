@@ -10,12 +10,14 @@ import com.ntp.pojo.Room;
 import com.ntp.repository.RoomRepository;
 import com.ntp.service.RoomService;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -60,6 +62,27 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public boolean deleteRoom(int id) {
         return this.roomRepo.deleteRoom(id);
+    }
+
+    @Override
+    public Room addRoom(Map<String, String> params, MultipartFile image) {
+        Room r = new Room();
+//        r.setCreatedDate(new Date());
+        r.setName(params.get("name"));
+        r.setDescription(params.get("description"));      
+        r.setAddress(params.get("address"));
+        if (!image.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(image.getBytes(), 
+                        ObjectUtils.asMap("resource_type", "auto"));
+                r.setImage(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(RoomServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+          
+        return this.roomRepo.addRoom(r);
+        
     }
 
 }

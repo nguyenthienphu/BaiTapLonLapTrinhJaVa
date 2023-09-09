@@ -1,14 +1,17 @@
 import { useState, useEffect, useContext } from "react"
 import Apis, { endpoints } from "../configs/Apis"
-import { Alert, Button, Card, Col, Row } from "react-bootstrap"
+import { Alert, Button, Card, Col, Image, Row } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
 import MySpinner from "../layout/MySpinner"
-import { MyCartContext } from "../App"
+import { MyCartContext, MyUserContext } from "../App"
 import cookie from "react-cookies"
 
 const Home = () => {
-    const [cartCounter, cartDispatch] = useContext(MyCartContext);
+    const [cartDispatch] = useContext(MyCartContext);
     const [room, setRoom] = useState([])
+    const [posts, setPosts] = useState([])
+    const [user] = useContext(MyUserContext);
+
     const [q] = useSearchParams();
 
     useEffect(() => {
@@ -31,6 +34,13 @@ const Home = () => {
                 console.error(ex);
             }
         }
+
+        const loadPosts = async () => {
+            let res = await Apis.get(endpoints['posts']);
+            setPosts(res.data);
+        }
+
+        loadPosts();
         loadRoom();
 
     }, [q]);
@@ -65,7 +75,15 @@ const Home = () => {
 
     return (
         <>
-            <h1 className="text-center text-info">DANH SÁCH PHÒNG</h1>
+            <h1 className="text-center text-info">DANH SÁCH PHÒNG CÓ SẴN</h1>
+            {user === null ? "" : <>
+                {user.userRole === "ROLE_HOST" ? <p><Link to="/addroom" className="btn btn-primary" >Thêm phòng</Link> <Link to="/hostroom/" className="btn btn-primary" >Chi tiết phòng chủ phòng</Link>
+                </p>
+
+                    : ""}
+            </>}
+
+
             <Row>
                 {room.map(r => {
                     let url = `/room/${r.id}`
@@ -86,6 +104,30 @@ const Home = () => {
                     )
                 })}
             </Row>
+            <h1 className="text-center text-info">BÀI VIẾT TÌM PHÒNG THEO YÊU CẦU</h1>
+            <Row>
+                {posts.map(p => {
+                    return (
+                        <Col md={3} xs={12} className="p-2">
+                            <Card>
+                                <Card.Body>
+                                    <Image src={p.user.avatar} alt={p.user.avatar} width={50} />{p.user.username}
+                                    <Card.Title>{p.name}</Card.Title>
+
+                                    <Card.Text>{p.description}</Card.Text>
+                                    <Card.Text>{p.address}</Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )
+                })}
+            </Row>
+
+
+
+
+
         </>
     )
 }

@@ -16,5 +16,14 @@ public class Cart {
     private String name;
     private int quantity;
     private Long unitPrice;
+
+    public Cart(Long id, String name, int quantity, Long unitPrice) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+    }
+    
+    
     
 }

@@ -7,6 +7,7 @@ package com.ntp.service;
 import com.ntp.pojo.Room;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -18,5 +19,6 @@ public interface RoomService {
     boolean addOrUpdateRoom(Room r);
     Room getRoomById(int id);
     boolean deleteRoom(int id);
+    Room addRoom(Map<String, String> params, MultipartFile image);
     
 }

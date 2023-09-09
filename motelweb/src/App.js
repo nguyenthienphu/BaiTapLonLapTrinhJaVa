@@ -12,6 +12,10 @@ import MyCartCounterReducer from './reducers/MyCartCounterReducer';
 import RoomDetail from './components/RoomDetail';
 import 'moment/locale/vi';
 import moment from 'moment'
+import Register from './components/Register';
+import AddPosts from './components/AddPosts';
+import AddRoom from './components/AddRoom';
+import HostRoomDetail from './components/HostRoomDetail';
 
 moment().local("vi")
 
@@ -33,8 +37,12 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/room/:roomId" element={<RoomDetail />} />
+              <Route path="/addroom" element={<AddRoom />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/addposts" element={<AddPosts />} />
+              <Route path="/hostroom/" element={<HostRoomDetail />} />
             </Routes>
 
           </Container>

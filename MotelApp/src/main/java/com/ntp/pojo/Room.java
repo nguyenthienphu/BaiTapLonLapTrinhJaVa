@@ -72,6 +72,7 @@ public class Room implements Serializable {
     @Size(max = 200)
     @Column(name = "image")
     private String image;
+    
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;

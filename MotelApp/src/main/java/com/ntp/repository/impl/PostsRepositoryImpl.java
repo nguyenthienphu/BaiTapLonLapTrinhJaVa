@@ -4,9 +4,8 @@
  */
 package com.ntp.repository.impl;
 
-import com.ntp.pojo.Comment;
-import com.ntp.pojo.Room;
-import com.ntp.repository.CommentRepository;
+import com.ntp.pojo.Posts;
+import com.ntp.repository.PostsRepository;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,39 +24,36 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class CommentRepositoryImpl implements CommentRepository {
-
+public class PostsRepositoryImpl implements PostsRepository {
+    
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Comment> getComment(int roomId) {
-        Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Comment> q = b.createQuery(Comment.class);
-        Root r = q.from(Room.class);
+    public List<Posts> getPosts() {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Posts> q = b.createQuery(Posts.class);
+        Root r = q.from(Posts.class);
         q.select(r);
         
-         q.orderBy(b.desc(r.get("id")));
         
-        Query query = s.createQuery("From Comment Where room.id=:id");
-        query.setParameter("id", roomId);
+        q.orderBy(b.desc(r.get("id")));
         
-        
-
+        Query query = session.createQuery(q.select(r));
         return query.getResultList();
     }
 
     @Override
-    public Comment addComment(Comment c) {
-        Session s = this.factory.getObject().getCurrentSession();
+    public Posts addPosts(Posts p) {
+       Session s = this.factory.getObject().getCurrentSession();
         try {
-            s.save(c);
-            return c;
+            s.save(p);
+            return p;
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return null;
         }
     }
+      
 }
-
