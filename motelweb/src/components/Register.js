@@ -47,7 +47,6 @@ const Register = () => {
     }
 
     const change = (evt, field) => {
-        // setUser({...user, [field]: evt.target.value})
         setUser(current => {
             return {...current, [field]: evt.target.value}
         })

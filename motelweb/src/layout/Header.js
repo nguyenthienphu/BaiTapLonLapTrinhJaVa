@@ -54,7 +54,9 @@ const Header = () => {
                             <Link to="/login" className="nav-link text-succes">Chào {user.lastName} {user.firstName} </Link>                    
                             <Button variant="secondary" onClick={logout}>Đăng xuất</Button>
                             <Link className="nav-link text-primary" to="/addposts">Đăng tin tìm phòng</Link>
-                            <Link className="nav-link text-primary" to="/hostroom/" >{user.hostId.name}</Link>
+                            {user.userRole === "ROLE_HOST" ? 
+                                <Link className="nav-link text-primary" to="/hostroom/" >{user.hostId.name}</Link>
+                            :""}
                         </>
                     }
                     <Link to="/cart" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link>
