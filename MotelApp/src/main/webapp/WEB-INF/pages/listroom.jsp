@@ -36,6 +36,7 @@
             <th>id</th>
             <th>Hình Ảnh</th>
             <th>Tên Phòng</th>
+            <th>Ghi chú</th>
             <th>Số Người</th>
             <th>Giá</th>
             <th>Địa chỉ</th>
@@ -48,6 +49,7 @@
                 <td>${r.id}</td>
                 <td><image src="${r.image}" alt="${p.image}" width="200"/></td>
                 <td>${r.name}</td>
+                <td>${r.description}</td>
                 <td>${r.number}</td>
                 <td>${r.price}</td>
                 <td>${r.address}</td>

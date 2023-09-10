@@ -12,6 +12,7 @@
 
 <c:url value="/room" var="action"/>
 <form:form modelAttribute="room" method="post" action="${action}" enctype="multipart/form-data">
+    <form:errors path="*" element="div" cssClass="alert alert-danger" />
     <form:hidden path="id" />
     <form:hidden path="image" />
     <div class="form-floating mb-3 mt-3">
