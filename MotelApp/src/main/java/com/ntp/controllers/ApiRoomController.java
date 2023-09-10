@@ -62,7 +62,8 @@ public class ApiRoomController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Room> addRoom(@RequestParam Map<String, String> params, @RequestPart MultipartFile image) {
+    public ResponseEntity<Room> addRoom(@RequestParam Map<String, String> params, 
+            @RequestPart MultipartFile image ) {
         Room r = this.roomSer.addRoom(params, image);
         
         return new ResponseEntity<>(r, HttpStatus.CREATED);

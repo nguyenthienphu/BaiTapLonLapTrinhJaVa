@@ -71,6 +71,8 @@ public class RoomServiceImpl implements RoomService {
         r.setName(params.get("name"));
         r.setDescription(params.get("description"));      
         r.setAddress(params.get("address"));
+       
+   
         if (!image.isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(image.getBytes(), 
