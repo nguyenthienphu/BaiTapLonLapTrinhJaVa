@@ -23,7 +23,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+<<<<<<< HEAD
 import javax.validation.constraints.Max;
+=======
+>>>>>>> 77fcc7b57d1f14a810b7d9b9b4db1cb93543db0a
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -58,14 +61,23 @@ public class Room implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
+<<<<<<< HEAD
     @Size(min = 5 ,max = 45 , message = "{room.name.lenErr}")
+=======
+    @Size(min = 5, max = 50 , message = "{room.name.lenErr}")
+>>>>>>> 77fcc7b57d1f14a810b7d9b9b4db1cb93543db0a
     @NotNull(message = "{room.name.notNull}")
     private String name;
-    @Size(max = 255)
+    @Size(min=10,max = 255, message = "{room.des.lenErr}")
     @Column(name = "description")
     private String description;
+<<<<<<< HEAD
     @Size(min = 10, max = 100 , message = "{address.lenErr}")
     @NotNull(message = "{notNull}")
+=======
+    @Size(min = 10 , max = 200, message = "{room.addRess.lenErr}")
+    @NotNull(message = "room.addRess.notNull")
+>>>>>>> 77fcc7b57d1f14a810b7d9b9b4db1cb93543db0a
     @Column(name = "address")
     private String address;
     @Column(name = "price")
