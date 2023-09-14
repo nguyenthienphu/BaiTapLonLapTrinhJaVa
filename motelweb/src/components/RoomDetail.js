@@ -61,8 +61,8 @@ const RoomDetail = () => {
             </Col>
             <Col md={5} xs={6}>
                 <h2 className="text-danger">{room.name}</h2>
-                <p>{room.description}</p>
-                <h3>{room.price} VNĐ</h3>
+                <p>Mô tả: {room.description}</p>
+                <h3>Giá phòng: {room.price} VNĐ</h3>
             </Col>
         </Row>
 

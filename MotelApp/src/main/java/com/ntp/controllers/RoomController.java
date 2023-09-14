@@ -6,6 +6,7 @@ package com.ntp.controllers;
 
 import com.ntp.pojo.Room;
 import com.ntp.service.RoomService;
+import java.security.Principal;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class RoomController {
     }
     
     @GetMapping("/room")
-    public String createRoom(Model model) {
+    public String createRoom(Model model, Principal p) {
         model.addAttribute("room", new Room());
         
         return "room";

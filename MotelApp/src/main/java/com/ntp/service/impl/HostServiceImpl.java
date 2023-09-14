@@ -22,12 +22,13 @@ import org.springframework.stereotype.Service;
  * @author Admin
  */
 @Service
-public class HostServiceImpl implements HostService{
+public class HostServiceImpl implements HostService {
+
     @Autowired
     private HostRepository hostRepo;
     @Autowired
     private Cloudinary cloudinary;
-    
+
     @Override
     public List<Host> getHost(Map<String, String> params) {
         return this.hostRepo.getHost(params);
@@ -35,14 +36,30 @@ public class HostServiceImpl implements HostService{
 
     @Override
     public boolean addOrUpdateHost(Host h) {
-         if (!h.getFile().isEmpty()){
+        if (!h.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(h.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 h.setImage(res.get("secure_url").toString());
-         } catch (IOException ex) {
-             Logger.getLogger(HostServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }
+            } catch (IOException ex) {
+                Logger.getLogger(HostServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (!h.getFile1().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(h.getFile1().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                h.setImage1(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(HostServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (!h.getFile2().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(h.getFile2().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                h.setImage2(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(HostServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return this.hostRepo.addOrUpdateHost(h);
     }
 
@@ -50,5 +67,5 @@ public class HostServiceImpl implements HostService{
     public Host getHostById(int id) {
         return this.hostRepo.getHostById(id);
     }
-    
+
 }

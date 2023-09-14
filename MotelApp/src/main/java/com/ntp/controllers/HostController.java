@@ -7,9 +7,11 @@ package com.ntp.controllers;
 import com.ntp.pojo.Host;
 import com.ntp.service.HostService;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,9 +50,11 @@ public class HostController {
     }
     
     @PostMapping("/host")
-    public String addHost(@ModelAttribute(value = "host")Host h ){
-        if(this.hostSer.addOrUpdateHost(h) == true)
-            return "redirect:/listhost";
+    public String addHost(@ModelAttribute(value = "host") @Valid Host h, BindingResult rs ){
+        if(!rs.hasErrors())
+            if(this.hostSer.addOrUpdateHost(h) == true)
+                return "redirect:/listhost";
+        
         return "host"; 
     }
 }

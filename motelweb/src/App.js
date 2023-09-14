@@ -16,6 +16,7 @@ import Register from './components/Register';
 import AddPosts from './components/AddPosts';
 import AddRoom from './components/AddRoom';
 import HostRoomDetail from './components/HostRoomDetail';
+import PostsDetail from './components/PostsDetail';
 
 moment().local("vi")
 
@@ -43,6 +44,7 @@ const App = () => {
               <Route path="/cart" element={<Cart />} />
               <Route path="/addposts" element={<AddPosts />} />
               <Route path="/hostroom/" element={<HostRoomDetail />} />
+              <Route path="/posts/:id" element={<PostsDetail />} />
             </Routes>
 
           </Container>

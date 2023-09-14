@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,27 +47,41 @@ public class Host implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(min = 5 ,max = 45 , message = "{name.host.lenErr}")
     @Column(name = "name")
+    @NotNull(message = "{notNull}")
     private String name;
+    @Size(min = 5 ,max = 100 , message = "{address.lenErr}")
+    @NotNull(message = "{notNull}")
+    private String address;
     @Size(max = 200)
     @Column(name = "image")
     private String image;
+    private String image1;
+    private String image2;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    
+
     @OneToMany(mappedBy = "hostId")
     @JsonIgnore
     private Set<Room> roomSet;
-    
+
     @OneToMany(mappedBy = "hostId")
     @JsonIgnore
     private Set<User> userSet;
-    
+
     @JsonIgnore
     @Transient
     private MultipartFile file;
+
+    @JsonIgnore
+    @Transient
+    private MultipartFile file1;
+
+    @JsonIgnore
+    @Transient
+    private MultipartFile file2;
 
     public Host() {
     }
@@ -168,5 +183,5 @@ public class Host implements Serializable {
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
     }
-    
+
 }

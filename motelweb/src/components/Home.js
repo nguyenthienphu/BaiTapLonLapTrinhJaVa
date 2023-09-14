@@ -92,12 +92,19 @@ const Home = () => {
                             <Card>
                                 <Card.Img variant="top" src={r.image} />
                                 <Card.Body>
-                                    <Card.Title>{r.name}</Card.Title>
-                                    <Card.Text>{r.price} VNĐ</Card.Text>
-                                    <Card.Text>{r.description}</Card.Text>
-                                    <Card.Text>{r.address}</Card.Text>
-                                    <Link to={url} className="btn btn-primary">Chi tiết phòng</Link>
-                                    <Button variant="danger" onClick={() => order(r)}>Đặt phòng</Button>
+                                    <Card.Title>Loại phòng: {r.name}</Card.Title>
+                                    <Card.Text>Giá: {r.price} VNĐ</Card.Text>
+                                    <Card.Text>Mô tả: {r.description}</Card.Text>
+                                    <Card.Text>Địa chỉ: {r.address}</Card.Text>
+                                    <Link to={url} className="btn btn-primary m-1">Chi tiết phòng</Link>
+                                    {user === null ? "" : <>
+                                        {user.userRole === "ROLE_USER" ?
+                                            <>
+                                                <Button variant="danger" onClick={() => order(r)}>Đặt phòng</Button>
+                                            </>
+                                            : ""}
+                                    </>
+                                    }
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -107,16 +114,16 @@ const Home = () => {
             <h1 className="text-center text-info">BÀI VIẾT TÌM PHÒNG THEO YÊU CẦU</h1>
             <Row>
                 {posts.map(p => {
+                    let url = `/posts/${p.id}`
                     return (
                         <Col md={3} xs={12} className="p-2">
                             <Card>
                                 <Card.Body>
                                     <Image src={p.user.avatar} alt={p.user.avatar} width={50} />{p.user.username}
                                     <Card.Title>{p.name}</Card.Title>
-
                                     <Card.Text>{p.description}</Card.Text>
                                     <Card.Text>{p.address}</Card.Text>
-
+                                    <Link to={url} className="btn btn-primary m-1">Chi tiết</Link>
                                 </Card.Body>
                             </Card>
                         </Col>

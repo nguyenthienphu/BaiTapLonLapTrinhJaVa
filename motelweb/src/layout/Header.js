@@ -44,22 +44,25 @@ const Header = () => {
                     <NavDropdown title="Danh mục chủ phòng" id="basic-nav-dropdown">
                         {host.map(h => {
                             let q = `/?hostId=${h.id}`;
-                            return <Link to={q} className="dropdown-item" key={h.id}>{h.name}</Link>;
+                            return <Link to={q} className="dropdown-item" key={h.id}>{h.name}</Link>
                         })}
                     </NavDropdown>
                     {user === null ? <> <Link to="/login" className="nav-link text-danger">Đăng nhập</Link>
                         <Link className="nav-link text-danger" to="/register">Đăng ký</Link>
                     </>
                         : <>
-                            <Link to="/login" className="nav-link text-succes">Chào {user.lastName} {user.firstName} </Link>                    
+                            <Link to="/login" className="nav-link text-succes">Chào {user.lastName} {user.firstName} </Link>
                             <Button variant="secondary" onClick={logout}>Đăng xuất</Button>
-                            <Link className="nav-link text-primary" to="/addposts">Đăng tin tìm phòng</Link>
-                            {user.userRole === "ROLE_HOST" ? 
-                                <Link className="nav-link text-primary" to="/hostroom/" >{user.hostId.name}</Link>
-                            :""}
+                            {user.userRole === "ROLE_USER" ?
+                                <>
+                                    <Link className="nav-link text-primary" to="/addposts">Đăng tin tìm phòng</Link>
+                                    <Link to="/cart" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link>
+                                </>
+                                : <Link className="nav-link text-primary" to="/hostroom/" >{user.hostId.name}</Link>
+                            }
                         </>
                     }
-                    <Link to="/cart" className="nav-link text-danger">Giỏ hàng <Badge> {cartCounter} </Badge></Link>
+
                 </Nav>
                 <Form className="d-flex" onSubmit={search}>
                     <Form.Control

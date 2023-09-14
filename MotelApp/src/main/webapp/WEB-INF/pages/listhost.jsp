@@ -20,8 +20,9 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>Hình Ảnh</th>
+                    <th>Tất Cả Hình Ảnh</th>
                     <th>Tên Chủ Phòng</th>
+                    <th>Địa chỉ</th>
                     <th>Mô tả</th>
                     <th>Tiện ích</th>
                 </tr>
@@ -30,8 +31,13 @@
                 <c:forEach items="${hosts}" var="h">
                     <tr>
                         <td>${h.id}</td>
-                        <td><image src="${h.image}" alt="${h.image}" width="200"/></td>
+                        <td>
+                            <image src="${h.image}" alt="${h.image}" width="100"/>
+                            <image src="${h.image1}" alt="${h.image1}" width="100"/>
+                            <image src="${h.image2}" alt="${h.image2}" width="100"/>
+                        </td>
                         <td>${h.name}</td>
+                        <td>${h.address}</td>
                         <td>${h.description}</td>
                         <td>
                             <c:url value="/host/${h.id}" var="api" />

@@ -21,9 +21,7 @@ const Posts = () => {
             if (res.status === 201) 
                 nav("/");
         }
-
         process();
-
     }
 
     return (
@@ -42,7 +40,6 @@ const Posts = () => {
                     <Form.Label>Địa chỉ</Form.Label>
                     <Form.Control as="textarea" aria-label="With textarea" value={address} onChange={e => setaddress(e.target.value)} placeholder="Tên bài viết" required />
                 </Form.Group>
-
                 <Form.Group className="mb-3">
                     <Button onClick={addPosts} variant="info">Đăng bài</Button>
                 </Form.Group>

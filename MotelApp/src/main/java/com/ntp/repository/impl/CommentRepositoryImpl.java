@@ -59,5 +59,25 @@ public class CommentRepositoryImpl implements CommentRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Comment> getCommentPosts(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Comment> q = b.createQuery(Comment.class);
+        Root r = q.from(Room.class);
+        q.select(r);
+        
+         q.orderBy(b.desc(r.get("id")));
+        
+        Query query = s.createQuery("From Comment Where posts.id=:id");
+        query.setParameter("id", id);
+        
+        
+
+        return query.getResultList();
+    }
+
+   
 }
 

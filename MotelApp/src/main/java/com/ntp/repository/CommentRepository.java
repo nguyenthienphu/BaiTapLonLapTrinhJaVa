@@ -14,4 +14,5 @@ import java.util.List;
 public interface CommentRepository {
     List<Comment> getComment(int roomId);
     Comment addComment(Comment c);
+    List<Comment> getCommentPosts(int id);
 }

@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -56,16 +58,20 @@ public class Room implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
-    @Size(max = 45 , message = "{room.name.lenErr}")
+    @Size(min = 5 ,max = 45 , message = "{room.name.lenErr}")
     @NotNull(message = "{room.name.notNull}")
     private String name;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @Size(max = 200)
+    @Size(min = 10, max = 100 , message = "{address.lenErr}")
+    @NotNull(message = "{notNull}")
     @Column(name = "address")
     private String address;
     @Column(name = "price")
+    
+    @Min(value = 1000000, message = "{price.lenErr}")
+    @Max(value = 5000000, message = "{price.lenErr}")
     private Long price;
     @Column(name = "number")
     private Integer number;

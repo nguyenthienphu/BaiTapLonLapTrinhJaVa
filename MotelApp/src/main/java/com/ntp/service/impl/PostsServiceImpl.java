@@ -45,4 +45,9 @@ public class PostsServiceImpl implements PostsService {
         return this.postsRepo.addPosts(p);
     }
 
+    @Override
+    public Posts getPostsById(int id) {
+        return this.postsRepo.getPostsById(id);
+    }
+
 }

@@ -13,10 +13,17 @@
 <form:form modelAttribute="host" method="post" action="${action}" enctype="multipart/form-data">
     <form:hidden path="id" />
     <form:hidden path="image" />
+    <form:hidden path="image1" />
+    <form:hidden path="image2" />
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên chủ phòng" name="name" />
         <label for="name">Tên chủ phòng</label>
         <form:errors path="name" element="div" cssClass="text-danger" />
+    </div>
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="text" class="form-control" path="address" id="address" placeholder="Địa chỉ" name="address" />
+        <label for="address">Địa chỉ</label>
+        <form:errors path="address" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="description" id="description" placeholder="Mô tả" name="description" />
@@ -27,6 +34,20 @@
         <label for="file">Ảnh chủ phòng</label>
         <c:if test="${host.image != null}">
             <img src="${host.image}" width="120" />
+        </c:if>
+    </div>
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="file" class="form-control" path="file1" id="file1" />
+        <label for="file1">Ảnh chủ phòng</label>
+        <c:if test="${host.image1 != null}">
+            <img src="${host.image1}" width="120" />
+        </c:if>
+    </div>
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="file" class="form-control" path="file2" id="file2" />
+        <label for="file2">Ảnh chủ phòng</label>
+        <c:if test="${host.image2 != null}">
+            <img src="${host.image2}" width="120" />
         </c:if>
     </div>
     <div class="btn btn-info mb-3 mt-3">

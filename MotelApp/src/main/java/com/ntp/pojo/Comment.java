@@ -38,4 +38,7 @@ public class Comment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
+    @ManyToOne
+    @JoinColumn(name = "posts_id")
+    private Posts posts;
 }

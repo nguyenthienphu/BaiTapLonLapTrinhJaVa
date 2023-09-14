@@ -26,10 +26,12 @@
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="price" id="price" placeholder="Giá phòng" name="price" />
         <label for="price">Giá phòng</label>
+        <form:errors path="price" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="address" id="address" placeholder="Địa chỉ" name="address" />
         <label for="address">Địa chỉ</label>
+        <form:errors path="address" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:select class="form-select" id="number" name="number" path="number">

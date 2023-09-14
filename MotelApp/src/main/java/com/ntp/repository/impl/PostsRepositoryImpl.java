@@ -55,5 +55,11 @@ public class PostsRepositoryImpl implements PostsRepository {
             return null;
         }
     }
+
+    @Override
+    public Posts getPostsById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Posts.class, id);
+    }
       
 }

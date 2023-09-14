@@ -14,6 +14,8 @@ export const endpoints = {
     "comment": (roomId) => `${SERVER_CONTEXT}/api/room/${roomId}/comment/`,
     "add-comment": `${SERVER_CONTEXT}/api/comment/`,
     "posts": `${SERVER_CONTEXT}/api/posts/`,
+    "posts-detail": (id) => `${SERVER_CONTEXT}/api/posts/${id}/`,
+    "comment-posts": (id) => `${SERVER_CONTEXT}/api/posts/${id}/comment/`,
 }
 export const authApis = () => {
     return axios.create({

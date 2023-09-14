@@ -14,4 +14,5 @@ import java.util.List;
 public interface PostsRepository {
     List<Posts> getPosts();
     Posts addPosts(Posts p);
+    Posts getPostsById(int id);
 }
